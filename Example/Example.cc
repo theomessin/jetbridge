@@ -32,7 +32,7 @@ void loop() {
 }
 
 int main() {
-  SimConnect_Open(&simconnect, "Flyover Consumer", 0, 0, 0, 0);
+  SimConnect_Open(&simconnect, "Jetbridge Consumer Example", 0, 0, 0, 0);
 
   // We'll use our lovely flyover sdk client.
   client = new jetbridge::Client(simconnect);
