@@ -58,7 +58,7 @@ delete response;
 **Important**: You should call the `client->handle_received_client_data_event` function with received data for all `SIMCONNECT_RECV_ID_CLIENT_DATA` events where the RequestID matches `jetbridge::kDownlinkRequest`. Basically, add something along these lines to your `MyDispatchProc`:
 
 ```c++
-case SIMCONNECT_RECV_ID_CLIENT_DATA: {
+case SIMCONNECT_RECV_ID_CLIENT_DATA:
   auto e = static_cast<SIMCONNECT_RECV_CLIENT_DATA*>(pData);
   if (e->dwRequestID == jetbridge::kDownlinkRequest) client->handle_received_client_data_event(e);
   break;
