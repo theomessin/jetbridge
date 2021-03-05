@@ -155,10 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Client.h" />
+    <ClInclude Include="Client.hh" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Client.cc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Protocol\Protocol.vcxproj">

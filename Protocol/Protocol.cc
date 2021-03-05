@@ -1,4 +1,4 @@
-#include "Protocol.h"
+#include "Protocol.hh"
 
 #include <cstdlib>
 #include <cstring>

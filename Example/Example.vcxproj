@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Example.cpp" />
+    <ClCompile Include="Example.cc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\Client.vcxproj">

@@ -153,10 +153,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Module.cpp" />
+    <ClCompile Include="Module.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Module.h" />
+    <ClInclude Include="Module.hh" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Protocol\Protocol.vcxproj">

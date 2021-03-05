@@ -5,7 +5,7 @@
 #include <future>
 #include <map>
 
-#include "../Protocol/Protocol.h"
+#include "../Protocol/Protocol.hh"
 
 namespace jetbridge {
 

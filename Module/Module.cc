@@ -1,4 +1,4 @@
-﻿#include "Module.h"
+﻿#include "Module.hh"
 
 // Microsoft Flight Simulator includes.
 #include <MSFS/Legacy/gauges.h>
@@ -11,7 +11,7 @@
 #include <string>
 
 // Library defines common things e.g. Packet.
-#include "../Protocol/Protocol.h"
+#include "../Protocol/Protocol.hh"
 
 HANDLE simconnect = 0;
 

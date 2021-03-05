@@ -3,7 +3,7 @@
 #include <iostream>
 #include <thread>
 
-#include "../Client/Client.h"
+#include "../Client/Client.hh"
 #include "SimConnect.h"
 
 HANDLE simconnect = 0;
