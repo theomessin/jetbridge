@@ -7,7 +7,7 @@ jetbridge::Client::Client(void* simconnect) {
 
   SimConnect_AddToClientDataDefinition(simconnect, kPacketDefinition, 0, sizeof(Packet));
   SimConnect_MapClientDataNameToID(simconnect, kPublicDownlinkChannel, kPublicDownlinkArea);
-  SimConnect_MapClientDataNameToID(simconnect, kPublicUplinkChannel, kPublicDownlinkArea);
+  SimConnect_MapClientDataNameToID(simconnect, kPublicUplinkChannel, kPublicUplinkArea);
 
   // We'll listen to downlink client data events.
   // It is the user's responsibility to forward these events to us.
