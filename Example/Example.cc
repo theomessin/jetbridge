@@ -41,7 +41,7 @@ int main() {
   std::thread loopThread(loop);
 
   while (!QUIT_SIGNAL_RECEIVED) {
-    char code[64] = {};
+    char code[jetbridge::kPacketDataSize] = {};
     code[0] = 'x';
     std::cin.getline(code + 1, sizeof(code) - 1);
     auto response = client->request(code);
