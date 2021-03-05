@@ -22,7 +22,7 @@ Module/
 ├─ Module.vcxproj
 Protocol/
 ├─ Protocol.vcxproj
-Jetbridge.sln
+jetbridge.sln
 ```
 
 #### How to use the example
