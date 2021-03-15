@@ -44,7 +44,7 @@ int main() {
     char code[jetbridge::kPacketDataSize] = {};
     code[0] = 'x';
     std::cin.getline(code + 1, sizeof(code) - 1);
-    auto response = client->request((char*)"");
+    auto response = client->request(code);
     delete response;  // response is a Packet* - be sure to delete when no longer needed.
   }
 
