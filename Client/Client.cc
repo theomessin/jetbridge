@@ -1,7 +1,5 @@
 #include "Client.hh"
 
-#include <algorithm>
-
 #include "SimConnect.h"
 
 jetbridge::Client::Client(void* simconnect) {
