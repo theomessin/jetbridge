@@ -19,7 +19,7 @@ void CALLBACK MyDispatchProc(SIMCONNECT_RECV* pData, DWORD cbData, void* pContex
 
     case SIMCONNECT_RECV_ID_CLIENT_DATA: {
       auto e = static_cast<SIMCONNECT_RECV_CLIENT_DATA*>(pData);
-      if (e->dwRequestID == jetbridge::kDownlinkRequest) client->handle_received_client_data_event(e);
+      if (e->dwRequestID == jetbridge::kDownlinkRequest) client->HandleReceivedClientDataEvent(e);
       break;
     }
   }
@@ -41,11 +41,13 @@ int main() {
   std::thread loopThread(loop);
 
   while (!QUIT_SIGNAL_RECEIVED) {
-    char code[jetbridge::kPacketDataSize] = {};
-    code[0] = 'x';
-    std::cin.getline(code + 1, sizeof(code) - 1);
-    auto response = client->request(code);
-    delete response;  // response is a Packet* - be sure to delete when no longer needed.
+    std::string code;
+    std::cin >> code;
+
+    double* result = new double;
+    client->ExecuteCalculatorCode(code, result);
+    std::cout << *result << std::endl;
+    delete result;
   }
 
   // We'll block until the loop thread exits too.

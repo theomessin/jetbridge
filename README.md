@@ -31,6 +31,8 @@ You must first install the Module wasm artifact. You'll have to create a Microso
 
 ![2021-03-05-05-29-01](https://user-images.githubusercontent.com/7229472/110072171-478cfd80-7d75-11eb-859f-200f31bc6c6e.gif)
 
+_Note: the float result of the code is now also displayd in the example application_
+
 #### How to use the C++ Client software development kit
 
 Make sure you've correctly imported the static library (header files need to be accessible, .lib file needs to be available to the Linker).
