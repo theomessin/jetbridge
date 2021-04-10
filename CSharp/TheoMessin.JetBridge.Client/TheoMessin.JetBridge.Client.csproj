@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>x64</Platforms>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>
+      <![CDATA[ JetBridge Client
+.NET Client to use SimConnect with the JetBridge module for Microsoft Flight Simulator      
+      ]]>
+    </Description>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MsfsSdkLocation Condition="'$(MsfsSdkLocation)'==''">C:\MSFS SDK</MsfsSdkLocation>
+  </PropertyGroup>
+
+    <ItemGroup>
+    <Reference Include="Microsoft.FlightSimulator.SimConnect">
+      <HintPath>$(MsfsSdkLocation)\SimConnect SDK\lib\managed\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
