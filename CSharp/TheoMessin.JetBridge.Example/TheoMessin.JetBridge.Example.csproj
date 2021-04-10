@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!--
+      Yes, even though we just specified console EXE, MSFT thought we were kidding and changes it to WinExe.
+      Set another property to tell it to not ignore the property we just set.
+      You can't make this stuff up.
+      https://docs.microsoft.com/en-us/dotnet/core/compatibility/windows-forms/5.0/automatically-infer-winexe-output-type#outputtype-set-to-winexe-for-wpf-and-winforms-apps
+    -->
+    <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <UseWindowsForms>true</UseWindowsForms>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MsfsSdkLocation Condition="'$(MsfsSdkLocation)'==''">C:\MSFS SDK</MsfsSdkLocation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheoMessin.JetBridge.Client\TheoMessin.JetBridge.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.FlightSimulator.SimConnect">
+      <HintPath>$(MsfsSdkLocation)\SimConnect SDK\lib\managed\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MsfsSdkLocation)\SimConnect SDK\lib\SimConnect.dll" Link="SimConnect.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+</Project>
