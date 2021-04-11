@@ -14,6 +14,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcx
 		{EAEB6926-E114-41F8-AEA4-E75EA4DA27E3} = {EAEB6926-E114-41F8-AEA4-E75EA4DA27E3}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{A724A4D3-A9D7-4763-AA69-BF010708B3C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheoMessin.JetBridge.Client", "CSharp\TheoMessin.JetBridge.Client\TheoMessin.JetBridge.Client.csproj", "{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheoMessin.JetBridge.Example", "CSharp\TheoMessin.JetBridge.Example\TheoMessin.JetBridge.Example.csproj", "{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -35,9 +41,21 @@ Global
 		{9C2AFAEB-F0F1-4D31-99A7-1835A9343602}.Debug|x64.Build.0 = Debug|x64
 		{9C2AFAEB-F0F1-4D31-99A7-1835A9343602}.Release|x64.ActiveCfg = Release|x64
 		{9C2AFAEB-F0F1-4D31-99A7-1835A9343602}.Release|x64.Build.0 = Release|x64
+		{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687}.Debug|x64.ActiveCfg = Debug|x64
+		{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687}.Debug|x64.Build.0 = Debug|x64
+		{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687}.Release|x64.ActiveCfg = Release|x64
+		{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687}.Release|x64.Build.0 = Release|x64
+		{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48}.Debug|x64.ActiveCfg = Debug|x64
+		{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48}.Debug|x64.Build.0 = Debug|x64
+		{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48}.Release|x64.ActiveCfg = Release|x64
+		{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A64FB8E1-D47A-46A6-BA99-8B4FFADD9687} = {A724A4D3-A9D7-4763-AA69-BF010708B3C3}
+		{1D32DF4D-DBB7-45D1-AF7C-EA5653629A48} = {A724A4D3-A9D7-4763-AA69-BF010708B3C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81D37C7C-B9F0-4AED-A96D-17AA2531A8A4}
