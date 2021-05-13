@@ -1,4 +1,4 @@
-Jetbridge is a simple WebAssembly (WASM) module that allows out-of-process SimConnect modules to act as if they were in-process ones. Specifically, the current development version allows for external modules to dispatch `execute_calculator_code` calls which can be used to read/write `L:` simvars, or even dispatch `H:` events.
+Jetbridge is a simple WebAssembly (WASM) module that allows out-of-process SimConnect modules to act as if they were in-process ones. Specifically, the current development version allows for external modules to dispatch `execute_calculator_code` calls which can be used to write `L:` simvars, or even dispatch `H:` events. Reading the value of local named variables using `get_named_variable` is also supported.
 
 #### How does this even work?
 
@@ -31,7 +31,7 @@ You must first install the Module wasm artifact. You'll have to create a Microso
 
 ![2021-03-05-05-29-01](https://user-images.githubusercontent.com/7229472/110072171-478cfd80-7d75-11eb-859f-200f31bc6c6e.gif)
 
-_Note: the float result of the code is now also displayd in the example application_
+Specifically, use the `exe` verb followed by the your RNN code. You may also use the `get` verb followed by the name of a local variable (without the `L:`) to get the value of an LocalVar. See the [example source code](Example/Example.cc) for more info
 
 #### How to use the C++ Client software development kit
 
@@ -42,14 +42,14 @@ Create a Client instance by passing a SimConnect `HANDLE`:
 client = new jetbridge::Client(simconnect);
 ```
 
-Then you can send some data using `Client->request`:
+Then you can send some data using `Client->Request`:
 
 ```c++
-auto response = client->request((char*)"x2 (>L:A320_Neo_MFD_NAV_MODE_1)");
+auto response = client->Request((char*)"x2 (>L:A320_Neo_MFD_NAV_MODE_1)");
 ```
 
 This example RPN will set (`x` opchar) the `A320_Neo_MFD_NAV_MODE_1` LocalVar to `2`.
-`Client->request` blocks until a response from Jetbridge has been received, or the timeout is reached.
+`Client->Request` blocks until a response from Jetbridge has been received, or the timeout is reached.
 If a response is received, it will return a Packet pointer.
 **Important**: don't forget to delete this when done using it to avoid a memory leak.
 
@@ -57,13 +57,22 @@ If a response is received, it will return a Packet pointer.
 delete response;
 ```
 
-**Important**: You should call the `client->handle_received_client_data_event` function with received data for all `SIMCONNECT_RECV_ID_CLIENT_DATA` events where the RequestID matches `jetbridge::kDownlinkRequest`. Basically, add something along these lines to your `MyDispatchProc`:
+**Important**: You should call the `client->HandleReceivedClientDataEvent` function with received data for all `SIMCONNECT_RECV_ID_CLIENT_DATA` events where the RequestID matches `jetbridge::kDownlinkRequest`. Basically, add something along these lines to your `MyDispatchProc`:
 
 ```c++
 case SIMCONNECT_RECV_ID_CLIENT_DATA:
   auto e = static_cast<SIMCONNECT_RECV_CLIENT_DATA*>(pData);
-  if (e->dwRequestID == jetbridge::kDownlinkRequest) client->handle_received_client_data_event(e);
+  if (e->dwRequestID == jetbridge::kDownlinkRequest) client->HandleReceivedClientDataEvent(e);
   break;
+```
+
+There are also two helper methods to send packets to (1) ExecuteCalculatorCode, and (2) GetNamedVariable:
+
+```c++
+// Execute the given RPN code:
+client->ExecuteCalculatorCode("2 (>L:A320_Neo_MFD_NAV_MODE_1)");
+// Get the value of a local named variable:
+double value = client->GetNamedVariable("A320_Neo_MFD_NAV_MODE_1");
 ```
 
 ---

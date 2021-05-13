@@ -52,20 +52,22 @@ jetbridge::Packet* jetbridge::Client::Request(char data[], int timeout) {
 
 void jetbridge::Client::ExecuteCalculatorCode(std::string code) {
   char data[jetbridge::kPacketDataSize] = {};
-  data[0] = jetbridge::kExecuteCalculatorCodeVoid;
+  data[0] = jetbridge::kExecuteCalculatorCode;
   std::memcpy(data + 1, code.c_str(), sizeof(data) - 1);
 
   auto response = this->Request(data);
   delete response;
 }
 
-// TODO: DRY between the two different ExecuteCalculatorCode methods.
-void jetbridge::Client::ExecuteCalculatorCode(std::string code, double* result) {
+double jetbridge::Client::GetNamedVariable(std::string variable_name) {
   char data[jetbridge::kPacketDataSize] = {};
-  data[0] = jetbridge::kExecuteCalculatorCodeDouble;
-  std::memcpy(data + 1, code.c_str(), sizeof(data) - 1);
+  data[0] = jetbridge::kGetNamedVariable;
+  std::memcpy(data + 1, variable_name.c_str(), sizeof(data) - 1);
 
   auto response = this->Request(data);
-  std::memcpy(result, response->data, sizeof(double));
-  delete response;
+
+  double variable_value;
+  // Get the actual value from the response packet.
+  std::memcpy(&variable_value, response->data, sizeof(double));
+  return variable_value;
 }

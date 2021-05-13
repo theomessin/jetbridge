@@ -41,13 +41,19 @@ int main() {
   std::thread loopThread(loop);
 
   while (!QUIT_SIGNAL_RECEIVED) {
-    std::string code;
-    std::cin >> code;
+    std::string verb, args;
+    std::cin >> verb;
+    std::getline(std::cin, args);
+    // Remove the extra space.
+    args.erase(0, 1);
 
-    double* result = new double;
-    client->ExecuteCalculatorCode(code, result);
-    std::cout << *result << std::endl;
-    delete result;
+    if (verb == "exe") {
+      client->ExecuteCalculatorCode(args);
+      std::cout << args << std::endl;
+    } else if (verb == "get") {
+      double value = client->GetNamedVariable(args);
+      std::cout << value << std::endl;
+    }
   }
 
   // We'll block until the loop thread exits too.

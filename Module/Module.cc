@@ -30,17 +30,17 @@ void CALLBACK HandleSimconnectMessage(SIMCONNECT_RECV* pData, DWORD cbData, void
   std::string payload = (char*)(packet->data + 1);
 
   switch (opcode) {
-    case jetbridge::kExecuteCalculatorCodeVoid: {
+    case jetbridge::kExecuteCalculatorCode: {
       execute_calculator_code(payload.c_str(), 0, 0, 0);
       break;
     }
 
-    case jetbridge::kExecuteCalculatorCodeDouble: {
-      double* calculator_result = new double;
-      execute_calculator_code(payload.c_str(), calculator_result, 0, 0);
-      // Copy the calculator_result float into the response packet's data member variable.
+    case jetbridge::kGetNamedVariable: {
+      int named_variable = check_named_variable(payload.c_str());
+      double variable_value = get_named_variable_value(named_variable);
+      // Copy the result float into the response packet's data member variable.
       // We're assuming that sizeof(double) < sizeof(packet).
-      std::memcpy(response->data, calculator_result, sizeof(double));
+      std::memcpy(response->data, &variable_value, sizeof(double));
       break;
     }
 

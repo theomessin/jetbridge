@@ -34,8 +34,8 @@ enum DataRequest {
 };
 
 enum Opcode {
-  kExecuteCalculatorCodeVoid = 0,
-  kExecuteCalculatorCodeDouble = 1,
+  kExecuteCalculatorCode = 0,
+  kGetNamedVariable = 1,
 };
 
 }  // namespace jetbridge

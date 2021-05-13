@@ -8,12 +8,6 @@
 
 namespace jetbridge {
 
-enum CalculatorCodeResultType {
-  kFloat,    // double
-  kInteger,  // int
-  kString,   // char*
-};
-
 class Client {
  private:
   void* simconnect = 0;
@@ -25,7 +19,7 @@ class Client {
   Packet* Request(char data[], int timeout = 1000);
 
   void ExecuteCalculatorCode(std::string code);
-  void ExecuteCalculatorCode(std::string code, double* result);
+  double GetNamedVariable(std::string variable_name);
 };
 
 }  // namespace jetbridge
