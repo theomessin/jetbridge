@@ -46,7 +46,7 @@ jetbridge::Packet* jetbridge::Client::Request(char data[], int timeout) {
   auto future = promise->get_future();
   auto status = future.wait_for(std::chrono::milliseconds(timeout));
 
-  if (status != std::future_status::ready) return 0;
+  if (status != std::future_status::ready) return nullptr;
   return future.get();
 }
 
@@ -65,9 +65,10 @@ double jetbridge::Client::GetNamedVariable(std::string variable_name) {
   std::memcpy(data + 1, variable_name.c_str(), sizeof(data) - 1);
 
   auto response = this->Request(data);
-
   double variable_value;
   // Get the actual value from the response packet.
   std::memcpy(&variable_value, response->data, sizeof(double));
+
+  delete response;
   return variable_value;
 }
