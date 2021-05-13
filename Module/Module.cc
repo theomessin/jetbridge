@@ -16,24 +16,45 @@
 HANDLE simconnect = 0;
 
 void CALLBACK HandleSimconnectMessage(SIMCONNECT_RECV* pData, DWORD cbData, void* pContext) {
-  switch (pData->dwID) {
-    case SIMCONNECT_RECV_ID_CLIENT_DATA: {
-      auto received_data = static_cast<SIMCONNECT_RECV_CLIENT_DATA*>(pData);
-      jetbridge::Packet* packet = (jetbridge::Packet*)&received_data->dwData;
+  if (pData->dwID != SIMCONNECT_RECV_ID_CLIENT_DATA) return;
 
-      // TODO: better opcode decoding.
-      if (packet->data[0] != 'x') return;
+  auto received_data = static_cast<SIMCONNECT_RECV_CLIENT_DATA*>(pData);
+  jetbridge::Packet* packet = (jetbridge::Packet*)&received_data->dwData;
 
-      std::string code = (char*)(packet->data + 1);
-      std::cout << "[Jetbridge] [" << packet->id << ":x] " << code << std::endl;
-      execute_calculator_code(code.c_str(), 0, 0, 0);
+  // We'll prepare our response packet with the same id.
+  auto response = new jetbridge::Packet();
+  response->id = packet->id;
 
-      // Reply with the same exact same packet (for now).
-      SimConnect_SetClientData(simconnect, jetbridge::kPublicDownlinkArea, jetbridge::kPacketDefinition, 0, 0,
-                               sizeof(jetbridge::Packet), packet);
+  // Split packet data to opcode and payload.
+  char opcode = packet->data[0];
+  std::string payload = (char*)(packet->data + 1);
+
+  switch (opcode) {
+    case jetbridge::kExecuteCalculatorCode: {
+      execute_calculator_code(payload.c_str(), 0, 0, 0);
       break;
     }
+
+    case jetbridge::kGetNamedVariable: {
+      int named_variable = check_named_variable(payload.c_str());
+      // Do not send a reply packet if the variable was not found.
+      if (named_variable == -1) return;
+
+      double variable_value = get_named_variable_value(named_variable);
+      // Copy the result float into the response packet's data member variable.
+      // We're assuming that sizeof(double) < sizeof(packet).
+      std::memcpy(response->data, &variable_value, sizeof(double));
+
+      break;
+    }
+
+    default:
+      return;
   }
+
+  // Send the response packet using the PublicDownlinkArea.
+  SimConnect_SetClientData(simconnect, jetbridge::kPublicDownlinkArea, jetbridge::kPacketDefinition, 0, 0,
+                           sizeof(jetbridge::Packet), response);
 }
 
 extern "C" MSFS_CALLBACK void module_init() {

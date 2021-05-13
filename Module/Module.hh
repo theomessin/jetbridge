@@ -10,5 +10,5 @@
 #define __restrict__
 #endif
 
-const char* kModuleVersion = "0.1.0";
+const char* kModuleVersion = "0.2.0";
 const char* kSimconnectClientName = "Jetbridge";

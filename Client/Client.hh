@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Windows.h>
 
 #include <future>
@@ -16,8 +15,11 @@ class Client {
 
  public:
   Client(void* simconnect);
-  void handle_received_client_data_event(void* event);
-  Packet* request(char data[], int timeout = 1000);
+  void HandleReceivedClientDataEvent(void* event);
+  Packet* Request(char data[], int timeout = 1000);
+
+  void ExecuteCalculatorCode(std::string code);
+  double GetNamedVariable(std::string variable_name);
 };
 
 }  // namespace jetbridge
