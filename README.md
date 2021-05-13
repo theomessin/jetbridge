@@ -66,7 +66,7 @@ case SIMCONNECT_RECV_ID_CLIENT_DATA:
   break;
 ```
 
-There are also two helper methods to send packets to (1) ExecuteCalculatorCode, and (2) GetNamedVariable:
+There are also two helper methods to send packets to (1) `ExecuteCalculatorCode`, and (2) `GetNamedVariable`:
 
 ```c++
 // Execute the given RPN code:

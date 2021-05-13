@@ -37,10 +37,14 @@ void CALLBACK HandleSimconnectMessage(SIMCONNECT_RECV* pData, DWORD cbData, void
 
     case jetbridge::kGetNamedVariable: {
       int named_variable = check_named_variable(payload.c_str());
+      // Do not send a reply packet if the variable was not found.
+      if (named_variable == -1) return;
+
       double variable_value = get_named_variable_value(named_variable);
       // Copy the result float into the response packet's data member variable.
       // We're assuming that sizeof(double) < sizeof(packet).
       std::memcpy(response->data, &variable_value, sizeof(double));
+
       break;
     }
 
